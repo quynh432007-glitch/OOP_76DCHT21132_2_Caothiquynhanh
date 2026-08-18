@@ -1,0 +1,8 @@
+#include<iostream>
+using namespace std;
+struct Nhanvien{
+	char tennv[50];
+    char manv[50];
+    long long luongcoban;
+    double heso;
+};
