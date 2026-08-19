@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+struct Nhanvien{
+	char tennv[50];
+    char manv[50];
+    long long luongcoban;
+    double heso;
+};
+void nhap(Nhanvien nv[], int n){
+	int i;
+	for(i=0; i<n; i++)
+	{
+		cout<<"nv["<<i<<"]"<<endl;
+		cout<< "Nhap ma nhan vien : ";cin>>nv[i].manv; 
+		cin.ignore();
+		cout<<"Nhap ten nhan vien :"; cin.getline(nv[i].tennv,50);
+		cout<<"Nhap Luong co ban : " ; cin>>nv[i].luongcoban;
+		cout << "Nhap He so: ";cin>>nv[i].heso;
+	}
+}
+
+void xuat(Nhanvien nv[], int n){
+	int i;
+	for(i=0; i<n; i++)
+	{
+	cout << "Ma NV: " << nv[i].manv << endl;
+    cout << "Ten nhan vien: " << nv[i].tennv<< endl;
+    cout << "Luong co ban: " << nv[i].luongcoban<< endl;
+    cout << "He so: " << nv[i].heso << endl;
+	}
+}
