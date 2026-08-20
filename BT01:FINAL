@@ -29,3 +29,11 @@ void xuat(Nhanvien nv[], int n){
     cout << "He so: " << nv[i].heso << endl;
 	}
 }
+int main() {
+	Nhanvien nv[100];
+    int n;
+	cout<<"Nhap so luong nhan vien: "; cin>>n;
+	nhap(nv,n);
+	xuat(nv,n);
+    return 0;
+}
