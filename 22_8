@@ -1,0 +1,72 @@
+#include<iostream> 
+#include<iomanip> 
+#include<string.h>
+#include<vector>
+using namespace std;
+//02- Cao Thi Quynh Anh
+//Cong ty co cac thong tin co ban nhu manv, ngaysinh, hoten,  diachi .Nhap cho 1 nv ten Minh 
+class NhanVien{
+	private:
+	string manv;
+	string diachi; 
+	string hoten;
+	string ngaysinh; 
+	public: 
+	    void nhap()
+	    { 
+	    	cout<<"Nhap ho ten nhan vien : " ; getline(cin,hoten);
+	    	cout<<"Nhap ngay sinh: " ;getline(cin,ngaysinh);
+	    	cout<<"Nhap ma nhan vien : "; cin>>manv;
+	    	cin.ignore();
+			cout<<"Nhap dia chi: " ;getline(cin,diachi);
+		}
+		
+		void xuat(){
+			cout<<" " <<endl; 
+			cout<<"THONG TIN NHAN VIEN" <<endl; 
+			cout<<"Ma nhan vien : " <<manv<<endl<<"Ho ten : "<<hoten<<endl<<"Ngay sinh : "<<ngaysinh<<endl<<"Dia chi : "<<diachi; 
+		}
+};
+int main(){
+	int i;
+    const int n = 10;
+    NhanVien danhSach[10];
+    cout << "NHAP 10 NHAN VIEN" << endl;
+    for (i = 0; i < n; i++) {
+        cout << "Nhan vien " << i + 1  << endl;
+        danhSach[i].nhap();
+    }
+    cout << "CACH 1: MANG TINH " << endl;
+    NhanVien mangTinh[10];
+    for (i = 0; i < n; i++) {
+        mangTinh[i] = danhSach[i];
+    }
+for (i = 0; i < n; i++) {
+        cout << " Nhan vien " << i + 1 << endl;
+        mangTinh[i].xuat();
+    }
+    cout << " CACH 2: MANG DONG " << endl;
+    NhanVien *mangDong = new NhanVien[10];
+
+    for (i = 0; i < n; i++) {
+        mangDong[i] = danhSach[i];
+    }
+
+    for (i = 0; i < n; i++) {
+        cout << "Nhan vien " << i + 1 << endl;
+        mangDong[i].xuat();
+    }
+
+    delete[] mangDong;
+cout << "CACH 2 : VECTOR " << endl;
+
+    vector<NhanVien> danhSachVector;
+    for (i = 0; i < n; i++) {
+        danhSachVector.push_back(danhSach[i]);
+    }
+    for (i = 0; i < (int)danhSachVector.size(); i++) {
+        cout << "Nhan vien " << i + 1 << endl;
+        danhSachVector[i].xuat();
+    }
+    return 0;
+}
