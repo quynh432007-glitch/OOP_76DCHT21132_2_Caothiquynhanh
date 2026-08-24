@@ -1,12 +1,63 @@
-ư#include<iostream> 
+#include<iostream> 
 #include<iomanip> 
 #include<string.h>
 #include<vector>
 using namespace std;
-class NhanVien{
-	private:
-	string manv;
-	string diachi; 
-	string hoten;
-	string ngaysinh; 
+class NhanVien {
+private:
+    string manv;
+    string ngaysinh;
+    string hoten;
+    string diachi;
+
+public:
+    // Constructor có đ?i
+    NhanVien(string ma, string ns, string ten, string dc) {
+        manv = ma;
+        ngaysinh = ns;
+        hoten = ten;
+        diachi = dc;
+    }
+
+    void xuat() {
+        cout << left
+             << setw(15) << manv
+             << setw(15) << ngaysinh
+             << setw(25) << hoten
+             << setw(30) << diachi
+             << endl;
+    }
+};
+
+int main() {
+    int n;
+
+    cout << "Nhap so nhan vien: "<<endl; cin >> n;
+    cin.ignore();
+    vector<NhanVien> ds;
+    for (int i = 0; i < n; i++) {
+        string ma, ns, ten, dc;
+
+        cout << " Nhan vien thu " << i + 1 << endl;
+        cout << "Ma nhan vien: "; getline(cin, ma);
+        cout << "Ngay sinh: "; getline(cin, ns);
+        cout << "Ho ten: "; getline(cin, ten);
+        cout << "Dia chi: "; getline(cin, dc);
+        NhanVien nv(ma, ns, ten, dc);
+        ds.push_back(nv);
+    }
+
+    cout << " BANG DANH SACH NHAN VIEN ";
+
+    cout << left
+         << setw(15) << "Ma NV"
+         << setw(15) << "Ngay sinh"
+         << setw(25) << "Ho ten"
+         << setw(30) << "Dia chi"
+         << endl;
+    cout << string(85, '-') << endl;
+    for (int i = 0; i < ds.size(); i++) {
+        ds[i].xuat();
+    }
+    return 0;
 }
