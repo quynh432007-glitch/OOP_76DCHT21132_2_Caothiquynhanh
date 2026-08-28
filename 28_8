@@ -1,5 +1,106 @@
-#include<iostream> 
-#include<iomanip> 
-#include<string.h>
-#include<vector>
+#include <iostream>
+#include <iomanip>
+#include <string.h>
+#include <vector>
 using namespace std;
+
+// Khai bao lop ma tran
+class MaTran {
+private:
+    int sohang;
+    int socot;
+    int a[100][100];
+
+public:
+    // Constructor
+    MaTran() {
+        sohang = 0;
+        socot = 0;
+    }
+
+    // Khai bao ham ban nhap, xuat va cong
+    friend void nhap(MaTran &mt);
+    friend void xuat(MaTran mt);
+    friend MaTran cong(MaTran mt1, MaTran mt2);
+};
+
+// Ham nhap du lieu
+void nhap(MaTran &mt) {
+    cout << "Nhap so hang: "<<endl;
+    cin >> mt.sohang;
+
+    cout << "Nhap so cot: "<<endl;
+    cin >> mt.socot;
+
+    cout << "Nhap cac phan tu:\n";
+
+    for (int i = 0; i < mt.sohang; i++) {
+        for (int j = 0; j < mt.socot; j++) {
+            cout << "a[" << i << "][" << j << "] = ";
+            cin >> mt.a[i][j];
+        }
+    }
+}
+
+// Ham xuat du lieu
+void xuat(MaTran mt) {
+    cout << "Ma tran:\n";
+
+    for (int i = 0; i < mt.sohang; i++) {
+        for (int j = 0; j < mt.socot; j++) {
+            cout << mt.a[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+
+// Ham cong 2 ma tran
+MaTran cong(MaTran mt1, MaTran mt2) {
+    MaTran tong;
+
+    // Kiem tra 2 ma tran co dong cap hay khong
+    if (mt1.sohang != mt2.sohang ||
+        mt1.socot != mt2.socot) {
+
+        cout << "Hai ma tran khong dong cap!" << endl;
+        return tong;
+    }
+
+    // Gan kich thuoc cho ma tran tong
+    tong.sohang = mt1.sohang;
+    tong.socot = mt1.socot;
+
+    // Cong tung phan tu
+    for (int i = 0; i < tong.sohang; i++) {
+        for (int j = 0; j < tong.socot; j++) {
+            tong.a[i][j] =
+                mt1.a[i][j] + mt2.a[i][j];
+        }
+    }
+
+    return tong;
+}
+
+// Ham main
+int main() {
+    MaTran A, B, C;
+
+    cout << "NHAP MA TRAN A" <<endl;
+    nhap(A);
+
+    cout << "NHAP MA TRAN B "<<endl;
+    nhap(B);
+
+    cout << " MA TRAN A ";
+    xuat(A);
+
+    cout << "MA TRAN B ";
+    xuat(B);
+
+    C = cong(A, B);
+
+    cout << " KET QUA A + B ";
+    xuat(C);
+
+    return 0;
+}
