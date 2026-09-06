@@ -1,0 +1,130 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+using namespace std;
+
+class Sinhvien {
+private:
+    string hoten;
+    int namsinh;
+    vector<float> diem;
+
+public:
+    // Constructor
+    Sinhvien() {
+        hoten = "";
+        namsinh = 0;
+    }
+
+    // Ham nhap
+    void nhap() {
+        cout << "Nhap ho ten: ";
+        cin.ignore();
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namsinh;
+
+        diem.clear();
+
+        cout << "Nhap diem 5 mon:\n";
+        for (int i = 0; i < 5; i++) {
+            float x;
+            cout << "Mon " << i + 1 << ": ";
+            cin >> x;
+            diem.push_back(x);
+        }
+    }
+
+    // Ham xuat sinh vien
+    void xuat() {
+        cout << left
+             << setw(20) << hoten
+             << setw(12) << namsinh;
+
+        for (int i = 0; i < 5; i++) {
+            cout << setw(8)
+                 << fixed << setprecision(2)
+                 << diem[i];
+        }
+
+        cout << endl;
+    }
+
+    // Kiem tra va in mon thi lai
+    void thiLai() {
+        string tenMon[5] = {
+            "Toan",
+            "Ly",
+            "Hoa",
+            "Van",
+            "Anh"
+        };
+
+        bool coThiLai = false;
+
+        for (int i = 0; i < 5; i++) {
+            if (diem[i] < 5) {
+                cout << left
+                     << setw(20) << hoten
+                     << setw(10) << tenMon[i]
+                     << fixed << setprecision(2)
+                     << diem[i] << endl;
+
+                coThiLai = true;
+            }
+        }
+
+        if (!coThiLai) {
+            cout << left << setw(20) << hoten
+                 << "Khong co mon thi lai" << endl;
+        }
+    }
+};
+
+int main() {
+    int n;
+
+    cout << "Nhap so sinh vien: ";
+    cin >> n;
+
+    vector<Sinhvien> ds(n);
+
+    // Nhap danh sach sinh vien
+    for (int i = 0; i < n; i++) {
+        cout << "SINH VIEN " << i + 1 <<endl;
+        ds[i].nhap();
+    }
+
+    // In danh sach sinh vien
+    cout << "DANH SACH SINH VIEN"<<endl;
+
+    cout << left
+         << setw(20) << "Ho va ten"
+        << setw(12) << "Nam sinh"
+         << setw(8) << "m1"
+         << setw(8) << "m2"
+         << setw(8) << "m3"
+         << setw(8) << "m4"
+         << setw(8) << "m5"
+         << endl;
+
+    for (int i = 0; i < n; i++) {
+        ds[i].xuat();
+    }
+
+    // In sinh vien phai thi lai
+    cout << "SINH VIEN PHAI THI LAI "<<endl;
+
+    cout << left
+         << setw(20) << "Ho va ten"
+         << setw(10) << "Mon"
+         << "Diem" << endl;
+
+    for (int i = 0; i < n; i++) {
+        ds[i].thiLai();
+    }
+
+    return 0;
+}
