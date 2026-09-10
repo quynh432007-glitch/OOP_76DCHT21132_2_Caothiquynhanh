@@ -1,1 +1,116 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
 
+using namespace std;
+//BAI 1 
+class PS{
+private: 
+	int tuso;
+	int mauso; 
+public: 
+//ham tao khong doi
+    PS(){
+    	tuso=0;
+		mauso=1; 
+	}
+    //ham tao co doi
+	PS(int tu, int mau){
+		tuso=tu;
+		if(mau!=0){
+			mauso=mau; 
+		}
+		else{
+			mauso=1; 
+		} 
+	}
+	//nap chong toan tu nhap ham ban
+	friend istream & operator >>(istream &in, PS &p) ;
+	friend ostream & operator <<(ostream &on, PS p) ;
+	//rut gon phan so 
+	void rutgon(){
+		int x=tuso;
+		int y=mauso;
+		if(x<0){
+			x=-x; 
+		}
+		if(y<0){
+			y=-y; 
+		}
+		while (y!=0) {
+			int r = x%y;
+			x=y;
+			y=r; 
+		}
+		tuso = tuso/x;
+		mauso=mauso/x ;
+		if(mauso<0){
+			tuso=-tuso;
+			mauso=-mauso; 
+		}
+	}
+	
+	//nap chong toan tu cong , tru ,nhan , chia 
+	PS operator+(PS b) ;
+	PS operator-(PS b); 
+	PS operator*(PS b);
+	PS operator/(PS b);
+}; 
+//sua ham nhap 
+ istream & operator >>(istream &in, PS &p){
+ 	cout<<"Nhap tu so : " ;in>>p.tuso;
+	 do{
+	 	cout<<"Nhap mau so : " ;in>>p.mauso ;
+	 } while(p.mauso==0) ;
+ }
+ 
+ //sua ham xuat
+  ostream & operator <<(ostream &on, PS p){
+  	on<<p.tuso<<"/" <<p.mauso<<endl; 
+  }
+  
+//phep cong
+PS PS::operator+(PS b){
+	PS kq;
+	kq.tuso= tuso*b.mauso + b.tuso*mauso;
+	kq.mauso=mauso*b.mauso; 
+	kq.rutgon(); 
+	return kq; 
+}
+//phep tru
+PS PS::operator-(PS b){
+	PS kq;
+	kq.tuso= tuso*b.mauso - b.tuso*mauso;
+	kq.mauso=mauso*b.mauso; 
+	kq.rutgon(); 
+	return kq; 
+}
+//phep nhan 
+PS PS::operator*(PS b){
+	PS kq;
+	kq.tuso=tuso*b.tuso;
+	kq.mauso=mauso*b.mauso;
+	kq.rutgon(); 
+	return kq; 
+}
+//phep chia
+PS PS::operator/(PS b){
+	PS kq;
+	kq.tuso=tuso*b.mauso;
+	kq.mauso=mauso*b.tuso;
+	kq.rutgon();
+	return kq; 
+}
+int main(){
+	PS a, b;
+	cin>>a;
+	cin>>b;
+	cout<<"Phan so a : "<<a<<endl;
+	cout<<"Phan so b : "<<b<<endl;
+	PS c;
+	cout<<"Tong 2 phan so la : " ;
+	c= a+b;
+	cout<<c; 
+	cout<<"Hieu hai phan so la : " <<a-b<<endl<<"Tich 2 phan so la : " <<a*b<<endl<<"Thuong 2 phan so la : " <<a/b; 
+}
