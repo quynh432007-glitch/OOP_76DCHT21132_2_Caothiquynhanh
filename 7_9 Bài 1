@@ -25,6 +25,9 @@ public:
 			mauso=1; 
 		} 
 	}
+//ham huy
+~PS(){
+}
 	//nap chong toan tu nhap ham ban
 	friend istream & operator >>(istream &in, PS &p) ;
 	friend ostream & operator <<(ostream &on, PS p) ;
