@@ -1,1 +1,127 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
 
+using namespace std;
+//BAI 1 
+class Phanso{
+private:
+    int tuso;
+    int mauso;
+
+public:
+    // Ham tao khong doi
+    Phanso(){
+        tuso = 0;
+        mauso = 1;
+    }
+
+    // Ham tao co doi
+    Phanso(int tu, int mau){
+        tuso = tu;
+
+        if(mau != 0){
+            mauso = mau;
+        }
+        else{
+            mauso = 1;
+        }
+    }
+    
+//ham huy
+~Phanso() {
+}
+
+    // Ham nhap
+    void nhap(){
+        cout << "Nhap tu so: ";
+        cin >> tuso;
+
+        do{
+            cout << "Nhap mau so: ";
+            cin >> mauso;
+        }while(mauso == 0);
+    }
+
+    // Ham xuat
+    void xuat(){
+        cout << tuso << "/" << mauso;
+    }
+    
+    //rut gon
+	void rutgon(){
+		int x=tuso;
+		int y=mauso;
+		if(x<0){
+			x=-x; 
+		}
+		if(y<0){
+			y=-y; 
+		}
+		while (y!=0) {
+			int r = x%y;
+			x=y;
+			y=r; 
+		}
+		tuso = tuso/x;
+		mauso=mauso/x ;
+		if(mauso<0){
+			tuso=-tuso;
+			mauso=-mauso; 
+		}
+	}
+	
+//phep cong 
+Phanso cong(Phanso b){
+	Phanso kq;
+	kq.tuso= tuso*b.mauso + b.tuso*mauso;
+	kq.mauso=mauso*b.mauso; 
+	kq.rutgon(); 
+	return kq; 
+}
+//phep tru
+Phanso tru(Phanso b){
+	Phanso kq;
+	kq.tuso= tuso*b.mauso - b.tuso*mauso;
+	kq.mauso=mauso*b.mauso; 
+	kq.rutgon(); 
+	return kq; 
+}
+//phep nhan 
+Phanso nhan(Phanso b){
+	Phanso kq;
+	kq.tuso=tuso*b.tuso;
+	kq.mauso=mauso*b.mauso;
+	kq.rutgon(); 
+	return kq; 
+}
+//phep chia
+Phanso chia(Phanso b){
+	Phanso kq;
+	kq.tuso=tuso*b.mauso;
+	kq.mauso=mauso*b.tuso;
+	kq.rutgon();
+	return kq; 
+}
+};
+
+
+int main(){
+    Phanso a, b;
+    a.nhap();
+    b.nhap();
+    a.rutgon();
+	b.rutgon(); 
+    cout << "Phan so a: "; a.xuat();
+    cout << "\nPhan so b: "; b.xuat(); 
+	Phanso cong =a.cong(b) ;
+	Phanso tru = a.tru(b);
+	Phanso nhan = a.nhan(b);
+	Phanso chia = a.chia(b);
+	cout<<"\nTong 2 phan so : ";cong.xuat();
+	cout<<"\nHieu 2 phan so : ";tru.xuat();
+	cout<<"\nTich 2 phan so : " ;nhan.xuat();
+	cout<<"\nThuong 2 phan so : ";chia.xuat(); 
+	return 1; 
+}
