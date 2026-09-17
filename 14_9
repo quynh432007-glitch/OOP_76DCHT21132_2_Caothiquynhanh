@@ -1,1 +1,135 @@
 
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+// LOP NGUOI
+class nguoi {
+protected:
+    int namsinh;
+    string hoten;
+
+public:
+    // Ham tao khong doi
+    nguoi() {
+        hoten = "";
+        namsinh = 0;
+    }
+
+    // Ham tao co doi
+    nguoi(string ht, int ns) {
+        hoten = ht;
+        namsinh = ns;
+    }
+
+    // Ham nhap
+    virtual void nhap() {
+        cin.ignore();
+        cout << "Nhap ho ten: ";
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namsinh;
+    }
+
+    // Ham xuat
+    virtual void xuat() const {
+        cout << "Ho ten: " << hoten << endl;
+        cout << "Nam sinh: " << namsinh << endl;
+    }
+};
+
+
+// LOP SINH VIEN KE THUA LOP NGUOI
+class Sinhvien : public nguoi {
+private:
+    string msv;
+    float dtb;
+
+public:
+    // Ham tao khong doi
+    Sinhvien() : nguoi() {
+        msv = "";
+        dtb = 0;
+    }
+
+    // Ham tao co doi
+    Sinhvien(string ht, int ns, string msv, float dtb)
+        : nguoi(ht, ns) {
+        this->msv = msv;
+        this->dtb = dtb;
+    }
+
+    // Ham nhap
+    void nhap() override {
+        cin.ignore();
+
+        cout << "Nhap ho ten: ";
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namsinh;
+
+        cin.ignore();
+
+        cout << "Nhap ma sinh vien: ";
+        getline(cin, msv);
+
+        cout << "Nhap diem trung binh: ";
+        cin >> dtb;
+    }
+
+    // Ham xuat
+    void xuat() const override {
+        nguoi::xuat();
+
+        cout << "Ma sinh vien: " << msv << endl;
+        cout << "Diem trung binh: "
+             << fixed << setprecision(2) << dtb << endl;
+    }
+
+    // Getter
+    float getdtb() const {
+        return dtb;
+    }
+};
+
+
+// Ham sap xep giam dan theo diem trung binh
+bool diemgiamdan(const Sinhvien& sv1, const Sinhvien& sv2) {
+    return sv1.getdtb() > sv2.getdtb();
+}
+
+
+int main() {
+    int n;
+
+    cout << "Nhap so sinh vien: ";
+    cin >> n;
+
+    vector<Sinhvien> sv(n);
+
+    cout << "\n NHAP THONG TIN\n";
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nSinh vien " << i + 1 << endl;
+        sv[i].nhap();
+    }
+
+    // Sap xep giam dan theo diem trung binh
+    sort(sv.begin(), sv.end(), diemgiamdan);
+
+    cout << "\n THONG TIN SINH VIEN\n";
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nSinh vien " << i + 1 << endl;
+        sv[i].xuat();
+    }
+
+    return 0;
+}
+
