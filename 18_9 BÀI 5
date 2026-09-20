@@ -57,11 +57,7 @@ public:
     virtual void nhap() override {
         cin.ignore();
 
-        cout << "Nhap ho ten: ";
-        getline(cin, hoten);
-
-        cout << "Nhap nam sinh: ";
-        cin >> namsinh;
+       nguoi::nhap();
 
         cin.ignore();
 
