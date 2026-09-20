@@ -1,0 +1,136 @@
+
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+//BAI 5 
+// LOP NGUOI
+class nguoi {
+protected:
+    int namsinh;
+    string hoten;
+
+public:
+    // Ham tao khong doi
+    nguoi() {
+        hoten = "";
+        namsinh = 0;
+    }
+
+    // Ham tao co doi
+    nguoi(string ht, int ns) {
+        hoten = ht;
+        namsinh = ns;
+    }
+
+    // Ham nhap
+    virtual  void nhap() {
+        cin.ignore();
+        cout << "Nhap ho ten: ";
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namsinh;
+    }
+
+    // Ham xuat
+    virtual void xuat() const {
+        cout << "Ho ten: " << hoten << endl;
+        cout << "Nam sinh: " << namsinh << endl;
+    }
+};
+//const dc dung de noi rang khong dc phep thay doi doi tuong 
+//virtual dc dung do lop Sinhvien muon su dung nhap/xuat cua lop nguoi 
+
+// LOP SINH VIEN KE THUA LOP NGUOI
+class Sinhvien : public nguoi {
+private:
+    string msv;
+    float dtb;
+
+public:
+    // Ham tao khong doi
+    Sinhvien() : nguoi() {
+        msv = "";
+        dtb = 0;
+    }
+
+    // Ham tao co doi
+    Sinhvien(string ht, int ns, string msv, float dtb)
+        : nguoi(ht, ns) {
+        this->msv = msv;
+        this->dtb = dtb;
+    }
+
+    // Ham nhap
+    virtual void nhap() override {
+        cin.ignore();
+
+        cout << "Nhap ho ten: ";
+        getline(cin, hoten);
+
+        cout << "Nhap nam sinh: ";
+        cin >> namsinh;
+
+        cin.ignore();
+
+        cout << "Nhap ma sinh vien: ";
+        getline(cin, msv);
+
+        cout << "Nhap diem trung binh: ";
+        cin >> dtb;
+    }
+    
+    //override dc dung de cho biet ham nao dang ghi de ham cua lop cha 
+
+    // Ham xuat
+    void xuat() const override {
+        nguoi::xuat();
+
+        cout << "Ma sinh vien: " << msv << endl;
+        cout << "Diem trung binh: "
+             << fixed << setprecision(2) << dtb << endl;
+    }
+bool timkiem(string tukhoa) const {
+ return hoten.find(tukhoa) 
+ != string::npos || 
+ msv.find(tukhoa) != string::npos; 
+ } 
+
+};
+int main() {
+    int n;
+
+    cout << "Nhap so sinh vien: ";
+    cin >> n;
+
+    vector<Sinhvien> sv(n);
+
+    cout << "\n NHAP THONG TIN\n";
+
+    for (int i = 0; i < n; i++) {
+        cout << "\nSinh vien " << i + 1 << endl;
+        sv[i].nhap();
+    }
+    
+    cout << "\n THONG TIN SINH VIEN\n";
+    cin.ignore(); 
+    
+	string tukhoa;
+	cout<<"Nhap tu khoa can tim : " ;getline (cin,tukhoa) ;
+	bool timthay=false;
+	for (int i = 0; i < n; i++) { 
+	if (sv[i].timkiem(tukhoa)) { 
+	cout << "Sinh vien duoc tim thay :\n"; 
+	sv[i].xuat();
+	timthay = true;
+	 } 
+	 else{
+	 	cout<<"Khong co thong tin" ;
+	 } 
+	}
+    return 0;
+}
