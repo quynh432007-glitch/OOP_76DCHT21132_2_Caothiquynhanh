@@ -14,18 +14,6 @@ protected:
     string hoten;
 
 public:
-    // Ham tao khong doi
-    nguoi() {
-        hoten = "";
-        namsinh = 0;
-    }
-
-    // Ham tao co doi
-    nguoi(string ht, int ns) {
-        hoten = ht;
-        namsinh = ns;
-    }
-
     // Ham nhap
     virtual  void nhap() {
         cin.ignore();
