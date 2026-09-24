@@ -1,0 +1,82 @@
+#include <iostream>
+#include <iomanip>
+#include <cstdlib>
+using namespace std;
+
+class PS1 {
+private: 
+	int tuSo, mauSo;
+public:
+	PS1() { tuSo = 0; mauSo = 1; }
+	PS1(int t,int m){ tuSo = t; mauSo = m; }
+	
+	void Nhap(){
+		cout << "Nhap tu so: ";
+		cin >> tuSo;
+		do {
+			cout << "Nhap mau so (KHAC 0): ";
+			cin >> mauSo;
+		} while (mauSo == 0);
+	}
+	void In() const{
+	cout << setw(5) << tuSo << "/" << mauSo;
+	}
+	int UCLN (int a, int b) const {
+	a = abs (a); b= abs (b);
+	while (b !=0){int r = a % b;a = b; b = r;}
+	return a;
+	}
+	void ToiGian(){
+		int u = UCLN(tuSo, mauSo);
+		if (u != 0) { tuSo /= u; mauSo /= u;}
+		if (mauSo < 0) {tuSo = -tuSo; mauSo = -mauSo;}
+}
+		void Set(int t, int m) {tuSo = t; mauSo = m;}
+		int LayTu() const {return tuSo;}
+		int LayMau() const {return mauSo;}
+};
+class PS2 : public PS1 {
+	public:
+		PS2() : PS1() {}
+		PS2(int t, int m) : PS1(t,m) {}
+		
+		PS2& operator=(const PS2& other){
+			if (this !=&other) Set(other.LayTu(), other.LayMau());
+			return*this;
+		}
+		bool operator>(const PS2& other) const {
+		     return (LayTu() * other.LayMau()) > (other.LayTu() * LayMau());
+		}
+};
+int main(){
+	 PS2 ds[10];
+    int n;
+    do {
+        cout << "Nhap so luong phan so (toi da 10): ";
+        cin >> n;
+    } while (n <= 0 || n > 10);
+
+    for (int i = 0; i < n; i++) {
+        cout << "Phan so thu " << i + 1 << ":\n";
+        ds[i].Nhap();
+        ds[i].ToiGian();
+    }
+
+    // Sap xep giam dan bang bubble sort
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (ds[j + 1] > ds[j]) {
+                PS2 temp = ds[j];
+                ds[j] = ds[j + 1];
+                ds[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "\nDanh sach sau khi sap xep giam dan:\n";
+    for (int i = 0; i < n; i++) {
+        ds[i].In();
+        cout << endl;
+    }
+    return 0;
+}
