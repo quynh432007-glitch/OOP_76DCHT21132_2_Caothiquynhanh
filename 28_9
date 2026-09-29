@@ -1,0 +1,80 @@
+#include <iostream>
+#include <iomanip>
+#include <cmath>
+using namespace std;
+
+class SP1 {
+private:
+    double thuc, ao;
+public:
+    SP1() { thuc = 0; ao = 0; }
+    SP1(double t, double a) { thuc = t; ao = a; }
+
+    void Nhap() {
+        cout << "Nhap phan thuc: ";
+        cin >> thuc;
+        cout << "Nhap phan ao: ";
+        cin >> ao;
+    }
+
+    void In() const {
+        cout << setw(8) << thuc;
+        if (ao >= 0) cout << " + " << ao << "i";
+        else cout << " - " << -ao << "i";
+    }
+
+    double Module() const {
+        return sqrt(thuc * thuc + ao * ao);
+    }
+
+    void Set(double t, double a) { thuc = t; ao = a; }
+    double LayThuc() const { return thuc; }
+    double LayAo() const { return ao; }
+};
+
+class SP2 : public SP1 {
+public:
+    SP2() : SP1() {}
+    SP2(double t, double a) : SP1(t, a) {}
+
+    SP2& operator=(const SP2& other) {
+        if (this != &other) Set(other.LayThuc(), other.LayAo());
+        return *this;
+    }
+
+    bool operator>(const SP2& other) const {
+        return Module() > other.Module();
+    }
+};
+
+int main() {
+    SP2 ds[10];
+    int n;
+    do {
+        cout << "Nhap so luong so phuc (toi da 10): ";
+        cin >> n;
+    } while (n <= 0 || n > 10);
+
+    for (int i = 0; i < n; i++) {
+        cout << "So phuc thu " << i + 1 << ":\n";
+        ds[i].Nhap();
+    }
+
+    // Sap xep giam dan theo module bang bubble sort
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (ds[j + 1] > ds[j]) {
+                SP2 temp = ds[j];
+                ds[j] = ds[j + 1];
+                ds[j + 1] = temp;
+            }
+        }
+    }
+
+    cout << "\nDanh sach sau khi sap xep giam dan theo module:\n";
+    for (int i = 0; i < n; i++) {
+        ds[i].In();
+        cout << endl;
+    }
+    return 0;
+}
